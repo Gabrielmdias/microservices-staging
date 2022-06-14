@@ -1,0 +1,47 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://spring.io/guides/gs-producing-web-service"
+           targetNamespace="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
+
+    <xs:element name="getPackagesRequest">
+    	<xs:complexType></xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPackagesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="packages" maxOccurs="unbounded" type="tns:package"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="package">
+        <xs:sequence>
+        	<xs:element name="id" type="xs:int"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="price" type="xs:decimal"/>
+            <xs:element name="currency" type="xs:string"/>
+            <xs:element name="loyalty_period" type="xs:int"/>
+            <xs:element name="icon" type="xs:anyURI"/>
+            <xs:element name="startDate" type="xs:dateTime"/>
+            <xs:element name="endDate" type="xs:dateTime"/>
+            <xs:element name="company" type="tns:company"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="company">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="createdAt" type="xs:dateTime"/>
+            <xs:element name="location" type="xs:string"/>
+            <xs:element name="contact" type="tns:contact"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="contact">
+        <xs:sequence>
+            <xs:element name="msisdn" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

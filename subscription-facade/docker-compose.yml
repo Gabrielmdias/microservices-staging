@@ -1,0 +1,45 @@
+version: "3.8"
+services:
+  postgresql:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=witdb
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    restart: always
+  
+  rabbitmq:
+    image: docker.io/bitnami/rabbitmq:3.9
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_USERNAME=user
+      - RABBITMQ_PASSWORD=admin
+      - RABBITMQ_SECURE_PASSWORD=yes
+    volumes:
+      - 'rabbitmq_data:/bitnami/rabbitmq/mnesia'
+      
+  hazelcast:
+    image: hazelcast/hazelcast:4.2.4
+    ports:
+      - 5701:5701
+    environment:
+      HZ_CLUSTERNAME: dev
+    volumes:
+      - 'hazelcast_data:/hazelcast/data'
+  management-center:
+    image: hazelcast/management-center
+    ports:
+      - 8888:8080
+      
+volumes:
+  rabbitmq_data:
+    driver: local
+  hazelcast_data:
+    driver: local
+  
